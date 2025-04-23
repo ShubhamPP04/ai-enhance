@@ -72,10 +72,7 @@ const config: Config = {
       },
     },
   },
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: [],
 }
 
 export default config

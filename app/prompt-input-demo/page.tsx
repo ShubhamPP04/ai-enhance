@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/prompt-input"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Square, Copy, Check } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useToast } from "@/components/ui/toast"
 import { copyToClipboard } from "@/lib/clipboard"
 
@@ -23,7 +23,7 @@ export default function PromptInputDemo() {
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
-  const [currentEnhancing, setCurrentEnhancing] = useState<number | null>(null)
+  // We don't need to track currentEnhancing anymore since we're not using it
   const { showToast } = useToast()
 
   // Function to enhance a prompt using the API
@@ -54,7 +54,7 @@ export default function PromptInputDemo() {
         return newMessages;
       });
 
-      setCurrentEnhancing(null);
+      // Enhancement completed
 
       // Show a toast notification that the prompt is ready
       showToast('Prompt enhanced successfully!', 'success');
@@ -72,7 +72,7 @@ export default function PromptInputDemo() {
         return newMessages;
       });
 
-      setCurrentEnhancing(null);
+      // Error handling complete
     }
   };
 
@@ -89,13 +89,9 @@ export default function PromptInputDemo() {
         copied: false,
       }]);
 
-      setCurrentEnhancing(newMessageIndex);
-
       // Start enhancing the prompt
       // Clear input immediately but keep loading state
       setInput("");
-
-      // Start enhancing the prompt
       enhancePrompt(input, newMessageIndex).finally(() => {
         // Turn off loading state when enhancement is complete
         setIsLoading(false);
